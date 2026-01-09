@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="shop-name-section">
+            <div class="shop-name-content">
+                <h1 class="shop-title">பொட்டு பச்சியப்பன்</h1>
+                <img src="PCS.jpg" alt="PCS logo" class="shop-logo" style="max-width: 220px; height: auto; display: block; margin: 8px auto 12px;">
+                <h2 class="shop-subtitle">கேட்டரிங் & ஸ்வீட்ஸ்</h2>
+                <p class="shop-tagline">பாரம்பரியத்தை சுவைக்கவும், சிறப்பை அனுபவிக்கவும்</p>
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <div class="login-box">
+                <h2>மீண்டும் வரவேற்கிறோம்</h2>
+                <p class="login-subtitle">தொடர உள்நுழையவும்</p>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username">பயனர் பெயர்</label>
+                        <input type="text" id="username" name="username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">கடவுச்சொல்</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="login-btn">உள்நுழை</button>
+                </form>
+                <div id="errorMessage" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

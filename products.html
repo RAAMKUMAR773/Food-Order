@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Pottu Pachaiyapan Catering & Sweets</h1>
+                <button class="logout-btn" id="logoutBtn">வெளியேறு</button>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="dashboard.html" class="nav-link">முகப்பு</a>
+            <a href="products.html" class="nav-link active">தயாரிப்புகள்</a>
+            <a href="ordering.html" class="nav-link">ஆர்டர் செய்ய</a>
+            <a href="orderdetails.html" class="nav-link">ஆர்டர் விவரங்கள்</a>
+            <a href="packingsummary.html" class="nav-link">பேக்கிங் சுருக்கம்</a>
+        </nav>
+
+        <main class="dashboard-main">
+            <div class="products-page">
+                <div class="add-product-section">
+                    <h2>புதிய பொருளைச் சேர்</h2>
+                    <form id="productForm" class="product-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productType">பொருள் வகை</label>
+                                <select id="productType" name="productType" required>
+                                    <option value="">வகையைத் தேர்ந்தெடு</option>
+                                    <option value="sweet">இனிப்பு</option>
+                                    <option value="karam">காரம்</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="productName">பொருள் பெயர்</label>
+                                <input type="text" id="productName" name="productName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productPrice">விலை (₹ 1 கிலோக்கு)</label>
+                                <input type="number" id="productPrice" name="productPrice" step="0.01" min="0" required>
+                            </div>
+                            <button type="submit" class="submit-btn">பொருளைச் சேர்</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="add-product-section" style="margin-top: -1rem;">
+                    <h2>காப்பு & மீட்பு</h2>
+                    <div class="download-actions">
+                        <button type="button" id="exportProductsJSONBtn" class="download-btn">📥 Products JSON ஏற்றி எடு</button>
+                        <button type="button" id="exportProductsCSVBtn" class="download-btn">📥 Products CSV ஏற்றி எடு</button>
+                        <button type="button" id="importProductsJSONBtn" class="download-btn">📤 Products JSON ஏற்றி வை</button>
+                        <input type="file" id="importProductsInput" accept="application/json" style="display:none;" />
+                    </div>
+                </div>
+
+                <div class="products-display">
+                    <div class="sweets-section">
+                        <h2>இனிப்பு வகைகள்</h2>
+                        <div id="sweetsList" class="products-grid">
+                            <!-- Sweets will be displayed here -->
+                        </div>
+                    </div>
+
+                    <div class="karam-section">
+                        <h2>காரம் வகைகள்</h2>
+                        <div id="karamList" class="products-grid">
+                            <!-- Karam will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="products.js"></script>
+</body>
+</html>

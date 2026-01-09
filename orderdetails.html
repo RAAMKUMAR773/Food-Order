@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Pottu Pachaiyapan Catering & Sweets</h1>
+                <button class="logout-btn" id="logoutBtn">வெளியேறு</button>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="dashboard.html" class="nav-link">டாஷ்போர்டு</a>
+            <a href="products.html" class="nav-link">பொருட்களை நிர்வகி</a>
+            <a href="ordering.html" class="nav-link">ஆர்டர் செய்ய</a>
+            <a href="orderdetails.html" class="nav-link active">ஆர்டர் விவரங்கள்</a>
+            <a href="packingsummary.html" class="nav-link">பேக்கிங் சுருக்கம்</a>
+        </nav>
+
+        <main class="dashboard-main">
+            <div class="order-details-page">
+                <div class="orders-tabs">
+                    <button class="order-tab active" data-tab="all">அனைத்து ஆர்டர்கள்</button>
+                    <button class="order-tab" data-tab="delivered">வழங்கப்பட்ட ஆர்டர்கள்</button>
+                    <button class="order-tab" data-tab="toDeliver">நிலுவையில் உள்ள ஆர்டர்கள்</button>
+                    <button class="order-tab" data-tab="dues">பணம் நிலுவை</button>
+                </div>
+                <div class="section-header">
+                    <h2 id="ordersSectionTitle">அனைத்து ஆர்டர்கள்</h2>
+                    <div class="filter-actions">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="ஆர்டர்களைத் தேடு...">
+                        </div>
+                        <select id="filterStatus" class="filter-select">
+                            <option value="all">அனைத்து தேதிகள்</option>
+                            <option value="today">இன்று</option>
+                            <option value="thisWeek">இந்த வாரம்</option>
+                        </select>
+                        <div class="download-actions">
+                            <button class="download-btn" onclick="downloadAllOrdersPDF()">📥 அனைத்து ஆர்டர்களையும் PDF பதிவிறக்கு</button>
+                            <button class="download-btn" onclick="downloadTodayDeliveredPDF()">📥 இன்றைய வழங்கப்பட்டவை</button>
+                            <button class="download-btn" onclick="downloadByDatePDF()">📥 தேதியால் PDF பதிவிறக்கு</button>
+                            <button class="download-btn" onclick="downloadTodayDeliveryDateCSV()">📊 இன்றைய விநியோக தேதி CSV பதிவிறக்கு</button>
+                            <button class="download-btn" onclick="downloadOrdersCSVByDate()">📊 தேதியால் CSV பதிவிறக்கு</button>
+                            <button class="download-btn" onclick="downloadTodayOrdersTablePDF()">📄 இன்றைய விநியோக தேதி PDF (CSV வடிவம்)</button>
+                            <button class="download-btn" onclick="downloadOrdersTablePDFByDate()">📄 தேதியால் PDF (CSV வடிவம்)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ordersList" class="orders-list-grouped">
+                    <!-- Orders will be displayed here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Receive Payment Modal -->
+    <div id="receivePaymentModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="closeReceivePaymentModal" class="close-modal">&times;</span>
+            <h2>பணம் பெற</h2>
+            <div class="form-group">
+                <label for="receiveAmount">பெற்ற தொகை (₹)</label>
+                <input type="number" id="receiveAmount" min="0" step="0.01" placeholder="0.00" />
+            </div>
+            <div class="form-group">
+                <label for="receiveNote">குறிப்பு (விருப்பம்)</label>
+                <input type="text" id="receiveNote" placeholder="குறிப்பு" />
+            </div>
+            <div class="payment-summary">
+                <div class="payment-row">
+                    <span>மீதமுள்ள தொகை:</span>
+                    <span id="receiveRemaining">₹0.00</span>
+                </div>
+            </div>
+            <div style="display:flex; gap:0.75rem; justify-content:flex-end;">
+                <button id="receiveCancelBtn" class="cancel-order-btn" type="button">ரத்து செய்</button>
+                <button id="receiveSaveBtn" class="mark-delivered-btn" type="button">பணம் பதிவு செய்</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Order Modal -->
+    <div id="editOrderModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="closeEditModal" class="close-modal">&times;</span>
+            <h2>ஆர்டரை திருத்த</h2>
+            <div class="form-group">
+                <label for="editAddProduct">பொருளைச் சேர்</label>
+                <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                    <select id="editAddProduct"></select>
+                    <select id="editAddQty">
+                        <option value="0.25">1/4 கிலோ</option>
+                        <option value="0.5">1/2 கிலோ</option>
+                        <option value="0.75">3/4 கிலோ</option>
+                        <option value="1">1 கிலோ</option>
+                    </select>
+                    <input type="number" id="editAddCount" min="1" value="1" style="width:90px;"/>
+                    <button id="editAddBtn" class="action-btn" type="button">பொருளைச் சேர்</button>
+                </div>
+            </div>
+            <div id="editItemsList" class="cart-items"></div>
+            <div class="payment-summary">
+                <div class="payment-row">
+                    <span>மொத்த தொகை:</span>
+                    <span id="editTotalAmount">₹0.00</span>
+                </div>
+                <div class="payment-row">
+                    <span>முன்பணம் செலுத்தப்பட்டது:</span>
+                    <span id="editAdvanceAmount">₹0.00</span>
+                </div>
+                <div class="payment-row payment-remaining">
+                    <span><strong>மீதமுள்ள தொகை:</strong></span>
+                    <span id="editRemainingAmount"><strong>₹0.00</strong></span>
+                </div>
+            </div>
+            <div style="display:flex; gap:0.75rem; justify-content:flex-end;">
+                <button id="editCancelBtn" class="cancel-order-btn" type="button">ரத்து செய்</button>
+                <button id="editSaveBtn" class="mark-delivered-btn" type="button">மாற்றங்களைச் சேமி</button>
+            </div>
+        </div>
+    </div>
+    <script src="orderdetails.js"></script>
+</body>
+</html>

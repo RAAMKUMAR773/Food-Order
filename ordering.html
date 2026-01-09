@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Pottu Pachaiyapan Catering & Sweets</h1>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="back-btn">← முகப்பு</a>
+                    <button class="logout-btn" id="logoutBtn">வெளியேறு</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="ordering-main">
+            <div class="ordering-content">
+                <div class="menu-section">
+                    <div class="menu-header-with-search">
+                        <div class="menu-tabs">
+                            <button class="menu-tab active" data-category="sweet">இனிப்பு</button>
+                            <button class="menu-tab" data-category="karam">காரம்</button>
+                        </div>
+                        <div class="menu-search-box">
+                            <input type="text" id="productSearch" placeholder="🔍 பொருட்களைத் தேடு...">
+                        </div>
+                    </div>
+
+                    <div id="menuItems" class="menu-items-grid">
+                        <!-- Menu items will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="cart-section">
+                    <div class="cart-card">
+                        <h2>ஆர்டர் சுருக்கம்</h2>
+                        <div id="cartItems" class="cart-items">
+                            <p class="empty-cart">கார்ட்டு காலியாக உள்ளது</p>
+                        </div>
+                        <div class="cart-total">
+                            <div class="total-row">
+                                <span>மொத்தம்:</span>
+                                <span id="cartTotal">₹0</span>
+                            </div>
+                        </div>
+                        <button id="checkoutBtn" class="checkout-btn" disabled>சரிபார்ப்பு</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>ஆர்டரை முடிக்கவும்</h2>
+            <form id="checkoutForm" class="checkout-form">
+                <div class="form-group">
+                    <label for="checkoutCustomerName">வாடிக்கையாளர் பெயர்</label>
+                    <input type="text" id="checkoutCustomerName" name="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkoutPhone1">தொலைபேசி எண் 1</label>
+                    <input type="tel" id="checkoutPhone1" name="phone1" placeholder="10 இலக்க எண்" pattern="\d{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkoutPhone2">தொலைபேசி எண் 2 (விருப்பமானது)</label>
+                    <input type="tel" id="checkoutPhone2" name="phone2" placeholder="10 இலக்க எண்" pattern="\d{10}">
+                </div>
+                <div class="form-group">
+                    <label for="checkoutOrderDate">ஆர்டர் செய்யப்பட்ட தேதி</label>
+                    <input type="date" id="checkoutOrderDate" name="orderDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkoutDeliveryDate">விநியோகிக்க வேண்டிய தேதி</label>
+                    <input type="date" id="checkoutDeliveryDate" name="deliveryDate" required>
+                </div>
+                <div class="order-summary-review">
+                    <h3>ஆர்டர் சுருக்கம்</h3>
+                    <div id="checkoutSummary"></div>
+                    <div class="total-row">
+                        <span><strong>மொத்த தொகை:</strong></span>
+                        <span id="checkoutTotal"><strong>₹0</strong></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="checkoutPaymentMode">பணம் செலுத்தும் முறை</label>
+                    <select id="checkoutPaymentMode" name="paymentMode" required>
+                        <option value="Cash">Cash</option>
+                        <option value="Online">Online</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="checkoutAdvanceAmount">முன்பணம் செலுத்தப்பட்ட தொகை (₹)</label>
+                    <input type="number" id="checkoutAdvanceAmount" name="advanceAmount" min="0" step="0.01" placeholder="0.00" value="0">
+                    <small class="form-help-text">வாடிக்கையாளர் செலுத்திய முன்பணத்தை உள்ளிடவும்</small>
+                </div>
+                <div class="payment-summary">
+                    <div class="payment-row">
+                        <span>மொத்த தொகை:</span>
+                        <span id="paymentTotalAmount">₹0.00</span>
+                    </div>
+                    <div class="payment-row">
+                        <span>முன்பணம் செலுத்தப்பட்டது:</span>
+                        <span id="paymentAdvanceAmount">₹0.00</span>
+                    </div>
+                    <div class="payment-row payment-remaining">
+                        <span><strong>மீதமுள்ள தொகை:</strong></span>
+                        <span id="paymentRemainingAmount"><strong>₹0.00</strong></span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">ஆர்டர் செய்</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="ordering.js"></script>
+</body>
+</html>

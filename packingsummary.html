@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packing Summary - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Pottu Pachaiyapan Catering & Sweets</h1>
+                <button class="logout-btn" id="logoutBtn">வெளியேறு</button>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="dashboard.html" class="nav-link">முகப்பு</a>
+            <a href="products.html" class="nav-link">தயாரிப்புகள்</a>
+            <a href="ordering.html" class="nav-link">ஆர்டர் செய்ய</a>
+            <a href="orderdetails.html" class="nav-link">ஆர்டர் விவரங்கள்</a>
+            <a href="packingsummary.html" class="nav-link active">பேக்கிங் சுருக்கம்</a>
+        </nav>
+
+        <main class="dashboard-main">
+            <div class="packing-summary-page">
+                <div class="section-header">
+                    <h2>பேக்கிங் சுருக்கம்</h2>
+                    <div class="filter-actions">
+                        <select id="filterType" class="filter-select">
+                            <option value="toDeliver">வழங்க வேண்டிய ஆர்டர்கள்</option>
+                            <option value="todayDelivered">இன்றைய வழங்கப்பட்டவை</option>
+                            <option value="both">இரண்டும்</option>
+                        </select>
+                        <button class="download-btn" onclick="refreshPackingSummary()">🔄 புதுப்பிக்க</button>
+                    </div>
+                </div>
+
+                <div id="packingSummaryList" class="packing-summary-list">
+                    <!-- Packing summary will be displayed here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="packingsummary.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+Order ID,Customer Name,Mobile Number,Order Booking Date,Delivery Date,Delivery status,Order Amount,Advance Amount,Balance Amount,Payment Status,Payment Mode,Items
+1.76236E+12,raam,9876543210,05-11-2025,08-11-2025,Yes,2800,2800,0,Paid,0,லட்டு (1/4kg x 15 @ ₹320.00) | மைசூர் பாக் (1/2kg x 10 @ ₹320.00)
+1.76236E+12,y8h8,9876543210,05-11-2025,08-11-2025,Yes,6080,0,6080,Pending,0,லட்டு (1kg x 10 @ ₹320.00) | மைசூர் பாக் (1kg x 9 @ ₹320.00)
+Totals,,,,08-11-2025,,8880,,6080,,0,

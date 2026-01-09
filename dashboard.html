@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pottu Pachaiyapan Catering & Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Pottu Pachaiyapan Catering & Sweets</h1>
+                <button class="logout-btn" id="logoutBtn">வெளியேறு</button>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="dashboard.html" class="nav-link active">முகப்பு</a>
+            <a href="products.html" class="nav-link">தயாரிப்புகள்</a>
+            <a href="ordering.html" class="nav-link">ஆர்டர் செய்ய</a>
+            <a href="orderdetails.html" class="nav-link">ஆர்டர் விவரங்கள்</a>
+            <a href="packingsummary.html" class="nav-link">பேக்கிங் சுருக்கம்</a>
+        </nav>
+
+        <main class="dashboard-main">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3>இந்த வார ஆர்டர்கள்</h3>
+                        <p class="stat-value" id="weeklyOrders">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3>வழங்கப்பட்ட வருவாய்</h3>
+                        <p class="stat-value" id="deliveredRevenue">₹0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💳</div>
+                    <div class="stat-content">
+                        <h3>முன்பணம் பெறப்பட்டது</h3>
+                        <p class="stat-value" id="advanceReceived">₹0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <h3>வழங்க வேண்டிய தொகை</h3>
+                        <p class="stat-value" id="toDeliverAmount">₹0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-content">
+                        <h3>மொத்த ஆர்டர்கள்</h3>
+                        <p class="stat-value" id="totalOrders">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>வழங்கப்பட்ட ஆர்டர்கள்</h3>
+                        <p class="stat-value" id="deliveredOrders">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-content">
+                        <h3>நிலுவையில் உள்ள ஆர்டர்கள்</h3>
+                        <p class="stat-value" id="pendingOrders">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>வாடிக்கையாளர்கள்</h3>
+                        <p class="stat-value" id="totalCustomers">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3>மிக உயர்ந்த ஆர்டர்</h3>
+                        <p class="stat-value" id="highestOrder">₹0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h2>விரைவு செயல்கள்</h2>
+                <div class="action-buttons">
+                    <a href="products.html" class="action-btn">
+                        <span class="action-icon">➕</span>
+                        <span>தயாரிப்புகள்</span>
+                    </a>
+                    <a href="ordering.html" class="action-btn">
+                        <span class="action-icon">🛒</span>
+                        <span>புதிய ஆர்டர் எடு</span>
+                    </a>
+                    <a href="orderdetails.html" class="action-btn">
+                        <span class="action-icon">📋</span>
+                        <span>அனைத்து ஆர்டர்களையும் காண்க</span>
+                    </a>
+                    <button class="action-btn" onclick="downloadAllOrdersPDF()" style="width: 100%;">
+                        <span class="action-icon">📥</span>
+                        <span>அனைத்து ஆர்டர்களையும் PDF பதிவிறக்கு</span>
+                    </button>
+                    <button class="action-btn" onclick="downloadTodayDeliveredPDF()" style="width: 100%;">
+                        <span class="action-icon">📥</span>
+                        <span>இன்றைய வழங்கப்பட்டவை PDF பதிவிறக்கு</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="analytics-section">
+                <h2>பகுப்பாய்வு</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>📈 சராசரி ஆர்டர் மதிப்பு</h3>
+                        <p class="analytics-value" id="averageOrderValue">₹0</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>📅 இன்றைய ஆர்டர்கள்</h3>
+                        <p class="analytics-value" id="todayOrders">0</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>💵 இன்றைய வருவாய்</h3>
+                        <p class="analytics-value" id="todayRevenue">₹0</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>🎯 முடிவு விகிதம்</h3>
+                        <p class="analytics-value" id="completionRate">0%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-orders-section">
+                <h2>சமீபத்திய ஆர்டர்கள்</h2>
+                <div id="recentOrdersList" class="orders-list">
+                    <!-- Recent orders will be displayed here -->
+                </div>
+            </div>
+
+            <div class="highest-order-section">
+                <h2>மிக உயர்ந்த ஆர்டர்</h2>
+                <div id="highestOrderDetails" class="highest-order-card">
+                    <!-- Highest order details will be displayed here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
